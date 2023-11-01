@@ -35,21 +35,24 @@
             <ul data-ws-id="Dq6yA4PXj4Vm-mYGCSfwo" data-ws-component="List">
                 <li data-ws-id="S9c855DlpB0NyKKFAv17V" data-ws-component="ListItem" class="stats__swim"><span
                         data-ws-id="I-jzR1M98Tu5EYI1mewPN" data-ws-component="Text">🏊</span>
-     
+
                     <div data-ws-id="dzTDIgAMmvBMwUl0i6FIX" data-ws-component="Text">
                         <div data-ws-id="SOTmDPh60NyokHXEDgoF7" data-ws-component="Text"><b
                                 data-ws-id="afWRIjJlxbnl1R9Sl66NJ" data-ws-component="Bold">COUNT: </b></div><span
-                            data-ws-id="jeEF215QbosVCpxgvghKp" data-ws-component="Text" class="dynamic__content count"></span>
+                            data-ws-id="jeEF215QbosVCpxgvghKp" data-ws-component="Text"
+                            class="dynamic__content count"></span>
                     </div>
                     <div data-ws-id="lqs25xLAhz8RuAkFVkes-" data-ws-component="Text">
                         <div data-ws-id="qpwZdZLVALO4ZUbXAnJeO" data-ws-component="Text"><b
                                 data-ws-id="Zz6NfC68Tc9kLpLY-FrTx" data-ws-component="Bold">DISTANCE: </b></div><span
-                            data-ws-id="gJa9ri-nq9_ef4y3ymaVN" data-ws-component="Text" class="dynamic__content option__divide_by_thousand distance"></span>
+                            data-ws-id="gJa9ri-nq9_ef4y3ymaVN" data-ws-component="Text"
+                            class="dynamic__content option__divide_by_thousand option__add_unit--km/h distance"></span>
                     </div>
                     <div data-ws-id="vCNTPeTEiJnO1D414oVHF" data-ws-component="Text">
                         <div data-ws-id="vrks2PkXEE2qfGo-lRn8O" data-ws-component="Text"><b
                                 data-ws-id="RZ35daEV0QzMAA_sqvO5e" data-ws-component="Bold">TIME: </b></div><span
-                            data-ws-id="cP4LlEaZk5fXFWyq4L4Q4" data-ws-component="Text" class="dynamic__content option__totime moving_time"></span>
+                            data-ws-id="cP4LlEaZk5fXFWyq4L4Q4" data-ws-component="Text"
+                            class="dynamic__content option__totime moving_time"></span>
                     </div>
                 </li>
                 <li data-ws-id="_h_b7qgCDZwFIarFNJdPk" data-ws-component="ListItem">🚴</li>
@@ -57,11 +60,11 @@
             </ul>
         </div>
     </div>
-    <script src="index.js"></script>
+    <script src="oauth.js"></script>
     <script src="parser.js"></script>
     <script>
-        console.log(ws_oAuth)
-       /* async function init() {
+/*         console.log(ws_oAuth)
+        async function init() {
             const token = await ws_oAuth.get_token('https://basicity.app.n8n.cloud/webhook/oauth-demo');
             console.log(token)
 
@@ -73,7 +76,7 @@
                 console.log(athlete_activities);
             }
         }
-        init()*/
+        init() */
         const athlete = {
             id: 44126222,
             username: null,
@@ -168,7 +171,7 @@
             }
         }
         ws_parser.render('athlete__profile', athlete)
-        ws_parser.render('stats__swim',stats.all_swim_totals)
+        ws_parser.render('stats__swim', stats.all_swim_totals)
     </script>
 </body>
 
