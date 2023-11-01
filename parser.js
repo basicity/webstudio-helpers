@@ -111,13 +111,25 @@ const ws_parser = (function () {
     }
 
     /**
-     * Divides a number by 1000
+     * Divides a number by the argument
      * @param {number} content - The number that needs to be divided
+     * @param {number} divider - The number the content needs to be diveded with
      * @returns {number} - The diveded number
      * @memberOf ws_parser
     */
-    function option__divide_by_thousand(content) {
-        return content / 1000;
+    function option__divide(content, number) {
+        return content / number;
+    }
+
+    /**
+      * Multiplies a number by the argument
+      * @param {number} content - The number that needs to be multiplied
+      * @param {number} mulitplier - The number the content needs to be multiplied with
+      * @returns {number} - The multiplied number
+      * @memberOf ws_parser
+    */
+    function option__multiply(content, number) {
+        return content * number;
     }
 
     /**
