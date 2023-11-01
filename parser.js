@@ -118,7 +118,7 @@ const ws_parser = (function () {
      * @memberOf ws_parser
     */
     function option__divide(content, number) {
-        return content / number;
+        return parseFloat(content / number).toFixed(2);
     }
 
     /**
