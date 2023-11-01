@@ -40,7 +40,8 @@ const ws_parser = (function () {
                     console.log(i)
                     output += render(template, i).parentElement.innerHTML;
                 })
-                parent_container.innerHTML = output
+                console.log(parent_container)
+                parent_container.parentElement.innerHTML = output
             }
             // replace the textContent of the element
             if (list.contains('dynamic__field')) {
