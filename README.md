@@ -1,8 +1,26 @@
 # webstudio-helpers
 This repo contains helper classes for the platform https://webstudio.is/.
 ***
-[[toc]]
+- [webstudio-helpers](#webstudio-helpers)
+  - [ws\_oAuth](#ws_oauth)
+    - [Overview](#overview)
+    - [How to use](#how-to-use)
+  - [ws\_parser](#ws_parser)
+    - [Overview](#overview-1)
+    - [How to use?](#how-to-use-1)
+    - [How to add class names?](#how-to-add-class-names)
+      - [Scenario 1: adding property values using dynamic\_\_field](#scenario-1-adding-property-values-using-dynamic__field)
+        - [Example](#example)
+      - [Scenario 2: updating the src attribute of an image.](#scenario-2-updating-the-src-attribute-of-an-image)
+      - [Example](#example-1)
+      - [Scenario 3: updating the href attribute of a hyperlink](#scenario-3-updating-the-href-attribute-of-a-hyperlink)
+      - [Example](#example-2)
+      - [For a list](#for-a-list)
+      - [Example](#example-3)
+    - [Adding options](#adding-options)
+    - [Example](#example-4)
 ***
+
 ## ws_oAuth
 The goal of this module is to support oAuth calls to external services.
 ### Overview
@@ -43,7 +61,7 @@ ws_parser.render(document.querySelector('your_html_element'), your_data)
 ```
 ### How to add class names?
 There are 4 types of class names you can add to indicate dynamic content:
-1. **dyanmic__field**: indicating an element to show a single property of an object.
+1. **dynamic__field**: indicating an element to show a single property of an object.
 2. **dynamic__attribute--src**: indicating that the src attribute of the element must be updated.
 3. **dynamic__attribute--href**: indicating that the href attribute of the element must be updated.
 4. **dynamic__list**: indicating an element to render an array of objects.
@@ -53,10 +71,10 @@ Add the class  name **dynamic__field** followed by all the properties of the obj
 ```html
 <div class="container">
     <!-- show both the properties firstname and lastname -->
-    <p class="dyanmic__field firstname lastname"></p>
+    <p class="dynamic__field firstname lastname"></p>
     <div>
         <!-- only render the property age -->
-        <p class="dyanmic__field age">/<p>
+        <p class="dynamic__field age">/<p>
     </div>
 </div>
 ```
@@ -79,10 +97,10 @@ ws_parser.render(document.querySelector('.container'), person)
 <!-- output -->
 <div class="container">
     <!-- show both the properties firstname and lastname -->
-    <p class="dyanmic__field firstname lastname">John Doe</p>
+    <p class="dynamic__field firstname lastname">John Doe</p>
     <div>
         <!-- only render the property age -->
-        <p class="dyanmic__field age">27/<p>
+        <p class="dynamic__field age">27/<p>
     </div>
 </div>
 ```
@@ -92,7 +110,7 @@ Add the class **dynamic__attribute--src** to an <img> element followed by the pr
 ```html
 <div class="container">
     <!-- show the image -->
-    <img class="dyanmic__attribute--src profile" src="#" alt="">
+    <img class="dynamic__attribute--src profile" src="#" alt="">
 </div>
 ```
 
@@ -115,7 +133,7 @@ ws_parser.render(document.querySelector('.container'), person)
 <!-- output -->
 <div class="container">
     <!-- show the image -->
-    <img class="dyanmic__attribute--src profile" src="https://myimage.com/image.jpg" alt="">
+    <img class="dynamic__attribute--src profile" src="https://myimage.com/image.jpg" alt="">
 </div>
 ```
 #### Scenario 3: updating the href attribute of a hyperlink
@@ -124,7 +142,7 @@ Add the class **dynamic__attribute--href** to an <a> element followed by the pro
 ```html
 <div class="container">
     <!-- update the hyperlink -->
-    <a class="dyanmic__attribute--href website" href="#">
+    <a class="dynamic__attribute--href website" href="#">
         <span class="dynamic__field firstname lastname"></span>
     </a>
 </div>
@@ -150,11 +168,146 @@ ws_parser.render(document.querySelector('.container'), person)
 <!-- output -->
 <div class="container">
     <!-- update the hyperlink -->
-    <a class="dyanmic__attribute--href website" href="https://mywebsite.com">
+    <a class="dynamic__attribute--href website" href="https://mywebsite.com">
         <span class="dynamic__field firstname lastname">John Doe</span>
     </a>
 </div>
 ```
 #### For a list
+Add the class **dynamic__list** to the HTML element that will serve as the parent of all items. This will mostly be an <ul>, <ol> or <dl> element. 
+Add the class **dynamic__template** to the HTML element that will serve as the template for each element. This will mostly be a <li> or <div> element. Within the template, all fields can be tagged with the **dynamic__field** class name en will be treated as the element in [Scenario 1: Adding property values using dynamic__field](#scenario-1-adding-property-values-using-dynamic__field)
+#### Example
+```html
+<div class="container">
+    <!-- container for all the items -->
+    <ul class="dynamic__list">
+        <!-- the template of a single item -->
+        <li class="dynamic__template">
+            <div>
+                <a class="dynamic__attribute--href website" href="">
+                    <span class="dynamic__field firstname lastname"></span>
+                </a>
+                <img class="dynamic__attribute--src profile" src="#" alt="">
+            </div>
+        </li>
+    </ul>
+</div>
+```
 
+```javascript
+// json object
+const persons = [
+    {
+        firstname: "John",
+        lastname: "Doe",
+        picture: "https://myimage.com/image.jpg",
+        website: "https://mywebsite.com/john"
+    },
+    {
+        firstname: "Jane",
+        lastname: "Doe",
+        picture: "https://myimage.com/image2.jpg",
+        website: "https://mywebsite.com/jane/"
+},
+    {
+        firstname: "Allen",
+        lastname: "Smith",
+        picture: "https://myimage.com/image3.jpg",
+        website: "https://mywebsite.com/allen"
+}
+// ...
+]
+```
+
+```javascript
+// code in the HTML embed element
+ws_parser.render(document.querySelector('.container'), persons)
+```
+
+```html
+<!-- output -->
+<div class="container">
+    <!-- container for all the items -->
+    <ul class="dynamic__list">
+        <!-- the template of a single item -->
+        <li class="dynamic__template">
+            <div>
+                <a class="dynamic__attribute--href website" href=https://mywebsite.com/john">
+                    <span class="dynamic__field firstname lastname">John Doe</span>
+                </a>
+                <img class="dynamic__attribute--src profile" src="https://myimage.com/image.jpg" alt="">
+            </div>
+        </li>
+        <li class="dynamic__template">
+            <div>
+                <a class="dynamic__attribute--href website" href=https://mywebsite.com/jane">
+                    <span class="dynamic__field firstname lastname">Jane Doe</span>
+                </a>
+                <img class="dynamic__attribute--src profile" src="https://myimage.com/image2.jpg" alt="">
+            </div>
+        </li>
+        <li class="dynamic__template">
+            <div>
+                <a class="dynamic__attribute--href website" href=https://mywebsite.com/allen">
+                    <span class="dynamic__field firstname lastname">Allen Smith</span>
+                </a>
+                <img class="dynamic__attribute--src profile" src="https://myimage.com/image3.jpg" alt="">
+            </div>
+        </li>
+        <!-- ... -->
+    </ul>
+</div>
+```
 ### Adding options
+The module contains a number of functions that can be applied to an element to make certain transformations to the content. These classes are known as option classes.
+* **option__to_time(seconds)**: Returns a given time in seconds to the format 00h 00min 00sec.
+* **option__separator_comma(content)**: Replaces the spaces in a string with a comma.
+* **option__separator_dash(content)**: Replaces the spaces in a string with a dash.
+* **option__divide(content, number)**: Divides a number by the argument.
+* **option__multiply(content, number)**: Multiplies a number by the argument.
+* **option__add_after(content, after)**: Adds a string at the end of the input.
+* **option__add_before(content,before)**: Adds a string at the start of the input.
+* **option__format_date(content)**: Converts a date to DD - MM - YYYY hh:mm.
+### Example
+```html
+<div class="container">
+    <!-- add https:// before the hyperlink -->
+    <a class="dynamic__attribute--href website option__add_before--https://" href="#">
+        <!-- add a comma between the firsname and lastname -->
+        <span class="dynamic__field firstname lastname option__separator_coma"></span>
+    </a>
+    <div>
+        <!-- format the date created -->
+        <p class="dyanamic__field created option__format_date"></p>
+</div>
+```
+
+```javascript
+// json object
+const person = {
+    firstname: "John",
+    lastname: "Doe",
+    created: "2023-10-31T10:30:00",
+    picture: "https://myimage.com/image.jpg",
+    website: "mywebsite.com/"
+}
+```
+
+```javascript
+// code in the HTML embed element
+ws_parser.render(document.querySelector('.container'), person)
+```
+
+```html
+<!-- output -->
+<div class="container">
+    <!-- add https:// before the hyperlink -->
+    <a class="dynamic__attribute--href website option__add_before--https://" href="https://mywebsite.com/">
+        <!-- add a comma between the firsname and lastname -->
+        <span class="dynamic__field firstname lastname option__separator_coma">John, Doe</span>
+    </a>
+    <div>
+        <!-- format the date created -->
+        <p class="dyanamic__field created option__format_date">31 - 10 - 2023 10:30</p>
+</div>
+```

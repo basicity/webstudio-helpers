@@ -134,7 +134,7 @@ const ws_parser = (function () {
     }
 
     /**
-     * Adds a unit (string) at the end of the input
+     * Adds a string at the end of the input
      * @param {string} content - The original string
      * @param {string} after - The string that needs to be attached after the original string
      * @returns {string} - The original string followed by the after parameter
@@ -145,7 +145,7 @@ const ws_parser = (function () {
     }
 
     /**
-     * Adds a unit (string) at the end of the input
+     * Adds a string at the start of the input
      * @param {string} content - The original string
      * @param {string} unit - The string that needs to be attached before the original string
      * @returns {string} - The before argument followed by the original string
