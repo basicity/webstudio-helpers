@@ -1,6 +1,6 @@
 # webstudio-helpers
-This repo contains helper classes for the platform https://webstudio.is/.
-Check https://basicity.github.io/webstudio-helpers/ for all info about the avaible methods.
+This repo contains helper classes for the platform [webstudio.is](https://webstudio.is/).
+Check the [docs](https://basicity.github.io/webstudio-helpers/) for all info about the avaible methods.
 ***
 - [webstudio-helpers](#webstudio-helpers)
   - [ws\_oAuth](#ws_oauth)
