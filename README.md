@@ -1,5 +1,8 @@
 # webstudio-helpers
 This repo contains helper classes for the platform https://webstudio.is/.
+***
+[[toc]]
+***
 ## ws_oAuth
 The goal of this module is to support oAuth calls to external services.
 ### Overview
@@ -25,7 +28,7 @@ It contains 2 methods:
 </script>
 ```
 4. Check the result in the console
-
+***
 ## ws_parser
 The goal of this module is to make to easily convert JSON data into HTML elements by using a system of adding class names to the HTML elements.
 ### Overview
@@ -45,7 +48,7 @@ There are 4 types of class names you can add to indicate dynamic content:
 3. **dynamic__attribute--href**: indicating that the href attribute of the element must be updated.
 4. **dynamic__list**: indicating an element to render an array of objects.
 #### Scenario 1: adding property values using dynamic__field
-Add the class  name **dynamic__field** followed by all the properties of the object you want to show. The properties will be rendered as textContent of the element and are separeted by a space. You can overwrite this using one of the [option class names](#options) class names.
+Add the class  name **dynamic__field** followed by all the properties of the object you want to show. The properties will be rendered as textContent of the element and are separeted by a space. You can overwrite this using one of the [option class names](#adding-options).
 ##### Example
 ```html
 <div class="container">
@@ -82,9 +85,76 @@ ws_parser.render(document.querySelector('.container'), person)
         <p class="dyanmic__field age">27/<p>
     </div>
 </div>
-``````
-#### For a src attribute
-#### For a href attribute
+```
+#### Scenario 2: updating the src attribute of an image.
+Add the class **dynamic__attribute--src** to an <img> element followed by the property that contains the path of the image. You can add a part of the url before or after the image using the corresponding [option class names](#adding-options).
+#### Example
+```html
+<div class="container">
+    <!-- show the image -->
+    <img class="dyanmic__attribute--src profile" src="#" alt="">
+</div>
+```
+
+```javascript
+// json object
+const person = {
+    firstname: "John",
+    lastname: "Doe",
+    age: 27,
+    picture: "https://myimage.com/image.jpg"
+}
+```
+
+```javascript
+// code in the HTML embed element
+ws_parser.render(document.querySelector('.container'), person)
+```
+
+```html
+<!-- output -->
+<div class="container">
+    <!-- show the image -->
+    <img class="dyanmic__attribute--src profile" src="https://myimage.com/image.jpg" alt="">
+</div>
+```
+#### Scenario 3: updating the href attribute of a hyperlink
+Add the class **dynamic__attribute--href** to an <a> element followed by the property that contains the url for the hyperlink. You can add a part of the url before or after the image using the corresponding [option class names](#adding-options).
+#### Example
+```html
+<div class="container">
+    <!-- update the hyperlink -->
+    <a class="dyanmic__attribute--href website" href="#">
+        <span class="dynamic__field firstname lastname"></span>
+    </a>
+</div>
+```
+
+```javascript
+// json object
+const person = {
+    firstname: "John",
+    lastname: "Doe",
+    age: 27,
+    picture: "https://myimage.com/image.jpg",
+    website: "https://mywebsite.com/"
+}
+```
+
+```javascript
+// code in the HTML embed element
+ws_parser.render(document.querySelector('.container'), person)
+```
+
+```html
+<!-- output -->
+<div class="container">
+    <!-- update the hyperlink -->
+    <a class="dyanmic__attribute--href website" href="https://mywebsite.com">
+        <span class="dynamic__field firstname lastname">John Doe</span>
+    </a>
+</div>
+```
 #### For a list
 
-### Adding options {#options}
+### Adding options
