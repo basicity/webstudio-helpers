@@ -39,30 +39,52 @@ The module contains one public method:
 ws_parser.render(document.querySelector('your_html_element'), your_data)
 ```
 ### How to add class names?
-There are 4 types of class names you can add:
-1. __dyanmic__field__: indicating an element to show a single property of an object.
-2. __dynamic__attribute--src__: indicating that the src attribute of the element must be updated.
-3. __dynamic__attribute--href__: indicating that the href attribute of the element must be updated.
-4. __dynamic__list__: indicating an element to render an array of objects.
-#### Scenario 1: adding property values
-##### Situation
-Assume that you have a block element with multiple child elements and a JSON object
+There are 4 types of class names you can add to indicate dynamic content:
+1. **dyanmic__field**: indicating an element to show a single property of an object.
+2. **dynamic__attribute--src**: indicating that the src attribute of the element must be updated.
+3. **dynamic__attribute--href**: indicating that the href attribute of the element must be updated.
+4. **dynamic__list**: indicating an element to render an array of objects.
+#### Scenario 1: adding property values using dynamic__field
+Add the class  name **dynamic__field** followed by all the properties of the object you want to show. The properties will be rendered as textContent of the element and are separeted by a space. You can overwrite this using one of the [option class names](#options) class names.
+##### Example
 ```html
 <div class="container">
-    <p></p>
+    <!-- show both the properties firstname and lastname -->
+    <p class="dyanmic__field firstname lastname"></p>
     <div>
-        <p>/<p>
+        <!-- only render the property age -->
+        <p class="dyanmic__field age">/<p>
     </div>
 </div>
 ```
 
-```json
-{
-    "firstname": "John",
-    "lastname": "Doe",
-    "age": 27
+```javascript
+// json object
+const person = {
+    firstname: "John",
+    lastname: "Doe",
+    age: 27
 }
 ```
+
+```javascript
+// code in the HTML embed element
+ws_parser.render(document.querySelector('.container'), person)
+```
+
+```html
+<!-- output -->
+<div class="container">
+    <!-- show both the properties firstname and lastname -->
+    <p class="dyanmic__field firstname lastname">John Doe</p>
+    <div>
+        <!-- only render the property age -->
+        <p class="dyanmic__field age">27/<p>
+    </div>
+</div>
+``````
 #### For a src attribute
 #### For a href attribute
 #### For a list
+
+### Adding options {#options}
